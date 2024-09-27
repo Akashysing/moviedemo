@@ -10,6 +10,9 @@ class MovieDetailsController extends GetxController {
   final Rx<MovieData?> _movieDetails = (null as MovieData?).obs;
   MovieData? get movieDetails => _movieDetails.value;
 
+  final RxInt _movieId = 0.obs;
+  int get movieId => _movieId.value;
+
   @override
   void onInit() {
     getArgument();
@@ -18,6 +21,7 @@ class MovieDetailsController extends GetxController {
 
   void getArgument() {
     if (Get.arguments != null) {
+      _movieId.value = Get.arguments['movieId'];
       fetchMovieDetails(Get.arguments['movieId']);
     }
   }

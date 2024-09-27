@@ -17,15 +17,18 @@ class MovieCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: CachedNetworkImage(
-            height: 180,
-            width: 140,
-            fit: BoxFit.cover,
-            imageUrl: movie.getMoviePosterPath,
-            placeholder: (context, url) => const Center(
-              child: CommonShimmerContainer(
-                width: double.maxFinite,
-                height: double.maxFinite,
+          child: Hero(
+            tag: movie.id ?? '',
+            child: CachedNetworkImage(
+              height: 180,
+              width: 140,
+              fit: BoxFit.cover,
+              imageUrl: movie.getMoviePosterPath,
+              placeholder: (context, url) => const Center(
+                child: CommonShimmerContainer(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                ),
               ),
             ),
           ),

@@ -26,11 +26,12 @@ class MovieDashboardController extends GetxController {
     fetchUpcomingMovies();
   }
 
-  void navigateToMovieDetailsScreen(int? movieId) {
+  void navigateToMovieDetailsScreen(MovieData movie) {
     Get.toNamed(
       AppRoutesEnum.movieDetail.route,
       arguments: <String, dynamic>{
-        'movieId': movieId,
+        'movieId': movie.id,
+        'movieURL': movie.getMoviePosterPath
       },
     );
   }

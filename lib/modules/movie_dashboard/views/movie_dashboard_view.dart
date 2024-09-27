@@ -66,7 +66,7 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
                 MovieData movie = movies[index];
                 return GestureDetector(
                     onTap: () {
-                      controller.navigateToMovieDetailsScreen(movie.id);
+                      controller.navigateToMovieDetailsScreen(movie);
                     },
                     child: MovieCard(movie: movie));
               },

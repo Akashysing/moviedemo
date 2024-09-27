@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:kettomovie/utils/constants/app_api_endpoints.dart';
+
 class MovieData {
   final int? id;
   final String? posterPath;
@@ -12,7 +15,11 @@ class MovieData {
   final ReleaseDates? releaseDates;
 
   String get getMoviePosterPath => posterPath?.isNotEmpty ?? false
-      ? 'https://image.tmdb.org/t/p/w500/$posterPath'
+      ? '${APIEndPoints().tmdbImageBaseURL}$posterPath'
+      : '';
+
+  String get movieReleaseData => releaseDate?.isNotEmpty ?? false
+      ? DateFormat('dd/MM/yyyy').format(DateTime.parse(releaseDate!))
       : '';
 
   String get movieCertification {
