@@ -19,7 +19,7 @@ class MovieData {
   final VideosData? videos;
   final ReleaseDatesData? releaseDates;
 
-  String get getScoreInPercentage {
+  String get formattedPercentage {
     return '${((score ?? 0) * 10).toStringAsFixed(0)}%';
   }
 

@@ -20,7 +20,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xff121212),
+        backgroundColor: Colors.black.withOpacity(0.5),
         body: SafeArea(
           top: true,
           bottom: false,
@@ -136,7 +136,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                                   children: [
                                     // Score
                                     UIFactory().textConfiguration(
-                                      '${movie?.getScoreInPercentage} match',
+                                      '${movie?.formattedPercentage} match',
                                       color: Colors.green,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -317,24 +317,33 @@ Widget _recommendationListUI(MovieData? movie) {
           ResultData recomMovie =
               movie?.getRecommendationList?[index] ?? ResultData();
           return Container(
-            width: 100,
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            width: 120,
+            margin: const EdgeInsets.symmetric(horizontal: 5.0),
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    width: 110,
-                    height: 160,
-                    fit: BoxFit.cover,
-                    imageUrl: recomMovie.getRecommMoviePosterPath,
-                    errorWidget: (context, url, error) => Image.asset(
-                        AppImages().movieErrorPlaceHolder,
-                        fit: BoxFit.cover),
-                    placeholder: (context, url) => const Center(
-                      child: CommonShimmerContainer(
-                        width: double.maxFinite,
-                        height: double.maxFinite,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                      width: 115,
+                      height: 160,
+                      fit: BoxFit.cover,
+                      imageUrl: recomMovie.getRecommMoviePosterPath,
+                      errorWidget: (context, url, error) => Image.asset(
+                          AppImages().movieErrorPlaceHolder,
+                          fit: BoxFit.cover),
+                      placeholder: (context, url) => const Center(
+                        child: CommonShimmerContainer(
+                          width: double.maxFinite,
+                          height: double.maxFinite,
+                        ),
                       ),
                     ),
                   ),

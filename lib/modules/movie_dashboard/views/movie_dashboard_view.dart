@@ -12,9 +12,9 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff121212),
+      backgroundColor: Colors.black.withOpacity(0.5),
       appBar: AppBar(
-          backgroundColor: const Color(0xff121212),
+          backgroundColor: Colors.black.withOpacity(0.5),
           centerTitle: true,
           title: const Text(
             AppStrings.movieApp,
