@@ -1,4 +1,3 @@
-import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/utils/constants/app_api_endpoints.dart';
 
 class RecommendationsMovieData {
