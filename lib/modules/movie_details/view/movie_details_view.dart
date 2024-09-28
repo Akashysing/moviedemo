@@ -81,7 +81,6 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                 Obx(
                   () {
                     final movie = controller.movieDetails;
-
                     if (!controller.isLoading &&
                         controller.errorString.isNotEmpty) {
                       return Center(
@@ -102,7 +101,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                               child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 80.0),
                               child: CircularProgressIndicator(
-                                color: Colors.blue,
+                                color: Colors.white,
                               ),
                             ))
                           : Column(
@@ -124,7 +123,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                                           UIFactory().textConfiguration(
                                             '${movie?.title ?? ''}(${movie?.movieCertification})',
                                             color: Colors.white,
-                                            fontSize: 28,
+                                            fontSize: 25,
                                             fontWeight: FontWeight.bold,
                                           )
                                         ],
@@ -137,7 +136,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                                   children: [
                                     // Score
                                     UIFactory().textConfiguration(
-                                      '${movie?.formattedPercentage} match',
+                                      '${movie?.getScoreInPercentage} match',
                                       color: Colors.green,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -213,7 +212,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
-                                      castOverviewListUI(movie),
+                                      _castOverviewListUI(movie),
                                     ],
                                   ),
                                 ),
@@ -232,11 +231,10 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
-                                      recommendationListUI(movie)
+                                      _recommendationListUI(movie)
                                     ],
                                   ),
                                 ),
-                                UIFactory().verticalSpaceSmall,
                               ],
                             ),
                     );
@@ -249,7 +247,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
   }
 }
 
-Widget castOverviewListUI(MovieData? movie) {
+Widget _castOverviewListUI(MovieData? movie) {
   return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -274,7 +272,7 @@ Widget castOverviewListUI(MovieData? movie) {
                       fit: BoxFit.cover,
                       imageUrl: castActress.getCastActressPosterPath,
                       errorWidget: (context, url, error) => Image.asset(
-                          AppImages().movieErrorPlaceHolder,
+                          AppImages().castActressPlaceHolder,
                           fit: BoxFit.cover),
                       placeholder: (context, url) => const Center(
                         child: CommonShimmerContainer(
@@ -305,11 +303,11 @@ Widget castOverviewListUI(MovieData? movie) {
       ));
 }
 
-Widget recommendationListUI(MovieData? movie) {
+Widget _recommendationListUI(MovieData? movie) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: SizedBox(
-      height: 280,
+      height: 250,
       child: ListView.builder(
         padding: EdgeInsets.zero,
         shrinkWrap: true,

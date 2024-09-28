@@ -4,6 +4,7 @@ import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/modules/movie_dashboard/controller/movie_dashboard_controller.dart';
 import 'package:kettomovie/modules/movie_dashboard/views/movie_card.dart';
 import 'package:kettomovie/utils/constants/app_strings.dart';
+import 'package:kettomovie/utils/shared/ui_factory.dart';
 
 class MovieDashboardView extends GetView<MovieDashboardController> {
   const MovieDashboardView({super.key});
@@ -11,9 +12,10 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff121212),
       appBar: AppBar(
+          backgroundColor: const Color(0xff121212),
           centerTitle: true,
-          backgroundColor: Colors.blue,
           title: const Text(
             AppStrings.movieApp,
             style: TextStyle(
@@ -25,7 +27,7 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
       body: Obx(() {
         if (controller.isLoading) {
           return const Center(
-              child: CircularProgressIndicator(color: Colors.blue));
+              child: CircularProgressIndicator(color: Colors.white));
         } else {
           return SingleChildScrollView(
             child: Column(
@@ -53,10 +55,14 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: UIFactory().textConfiguration(
+              title,
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          UIFactory().verticalSpaceTiny,
           SizedBox(
             height: 200,
             child: ListView.builder(
@@ -72,6 +78,7 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
               },
             ),
           ),
+          UIFactory().verticalSpaceTiny,
         ],
       ),
     );

@@ -6,6 +6,7 @@ class AppStrings {
   factory AppStrings() {
     return _instance;
   }
+  // API String Constant
   static const String movieApp = 'Ketto Movie';
   static const String popularMovies = 'Popular Movies';
   static const String topRatedMovies = 'Top Rated Movies';

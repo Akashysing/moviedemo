@@ -7,5 +7,8 @@ class AppImages {
     return _instance;
   }
 
+  // API Images Constant
   final String movieErrorPlaceHolder = 'assets/images/png/movieError.png';
+  final String castActressPlaceHolder =
+      'assets/images/png/castActressPlaceHolder.png';
 }

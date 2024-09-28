@@ -9,10 +9,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize GetX and the ConnectivityService
-  await Get.putAsync(() async => ConnectivityService().onInit(),
-      permanent: true);
-  //await Get.find<ConnectivityService>().onInit();
-  await Future.delayed(const Duration(milliseconds: 500));
+  await Get.putAsync(() async => ConnectivityService(), permanent: true);
+  await Get.find<ConnectivityService>().onInit();
+
   runApp(const MyApp());
 }
 

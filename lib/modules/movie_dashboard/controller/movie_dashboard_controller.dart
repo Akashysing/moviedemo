@@ -28,10 +28,10 @@ class MovieDashboardController extends GetxController {
   }
 
   void fetchMovies() async {
-    if (!Get.find<ConnectivityService>().isConnected) {
-      return UIFactory().showSnackbar(
-          AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
-    }
+    // if (!Get.find<ConnectivityService>().isConnected) {
+    //   return UIFactory().showSnackbar(
+    //       AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
+    // }
     fetchPopularMovies();
     fetchTopRatedMovies();
     fetchUpcomingMovies();

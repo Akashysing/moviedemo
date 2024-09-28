@@ -22,23 +22,24 @@ class MovieDetailsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    getArgument(); // getting previous screen passed arguments
+    getArgument();
     fetchMovieDetails(movieId); // ApiCall with passing movieId arguments
     super.onInit();
   }
 
+// getting previous screen passed arguments
   void getArgument() async {
     if (Get.arguments != null) {
       _movieId.value = Get.arguments['movieId'];
     }
   }
 
-//previous screen navigation
+//Previous screen navigation
   void backButtonClick() {
     Get.back();
   }
 
-//fetch Movie Details
+//Fetch Movie Details
   void fetchMovieDetails(int movieId) async {
     _isLoading(true);
     await MovieService().getMovieDetails(
