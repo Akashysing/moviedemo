@@ -14,7 +14,7 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.5),
       appBar: AppBar(
-          backgroundColor: Colors.black.withOpacity(0.5),
+          backgroundColor: Colors.black,
           centerTitle: true,
           title: const Text(
             AppStrings.movieApp,
