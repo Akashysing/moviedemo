@@ -3,6 +3,7 @@ import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/utils/constants/app_api_endpoints.dart';
 
 class MovieService extends GetConnect {
+  // API Call for Get Movie List with category Wise
   Future<void> getMovies({
     required String category,
     required Function(List<MovieData> movieData) onSuccess,
@@ -34,6 +35,7 @@ class MovieService extends GetConnect {
     }
   }
 
+// API Call for Movie Details
   Future<void> getMovieDetails({
     required int movieId,
     required Function(MovieData movieDetails) onSuccess,

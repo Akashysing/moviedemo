@@ -1,11 +1,18 @@
 import 'package:get/get.dart';
 import 'package:kettomovie/data/models/movie_data.dart';
+import 'package:kettomovie/services/connectivity_service.dart';
 import 'package:kettomovie/services/movie_service.dart';
+import 'package:kettomovie/utils/constants/app_strings.dart';
+import 'package:kettomovie/utils/shared/ui_factory.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailsController extends GetxController {
+  // initialize variable
   final RxBool _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
+
+  final RxString _errorString = RxString('');
+  String get errorString => _errorString.value;
 
   final Rx<MovieData?> _movieDetails = (null as MovieData?).obs;
   MovieData? get movieDetails => _movieDetails.value;
@@ -14,18 +21,24 @@ class MovieDetailsController extends GetxController {
   int get movieId => _movieId.value;
 
   @override
-  void onInit() {
-    getArgument();
+  Future<void> onInit() async {
+    getArgument(); // getting previous screen passed arguments
+    fetchMovieDetails(movieId); // ApiCall with passing movieId arguments
     super.onInit();
   }
 
-  void getArgument() {
+  void getArgument() async {
     if (Get.arguments != null) {
       _movieId.value = Get.arguments['movieId'];
-      fetchMovieDetails(Get.arguments['movieId']);
     }
   }
 
+//previous screen navigation
+  void backButtonClick() {
+    Get.back();
+  }
+
+//fetch Movie Details
   void fetchMovieDetails(int movieId) async {
     _isLoading(true);
     await MovieService().getMovieDetails(
@@ -35,11 +48,17 @@ class MovieDetailsController extends GetxController {
           _isLoading(false);
         },
         onFailed: (String error) {
+          _errorString.value = error;
           _isLoading(false);
         });
   }
 
-  void onTappedWatchTrailer(String yTtrailerLink) async {
+//Navigate to youtube using url launcher package
+  onTappedWatchTrailer(String yTtrailerLink) async {
+    if ((!Get.find<ConnectivityService>().isConnected)) {
+      return UIFactory().showSnackbar(
+          AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
+    }
     final Uri url = Uri.parse(yTtrailerLink);
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);

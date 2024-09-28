@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:kettomovie/data/models/movie_data.dart';
+import 'package:kettomovie/services/connectivity_service.dart';
 import 'package:kettomovie/services/movie_service.dart';
+import 'package:kettomovie/utils/constants/app_strings.dart';
 import 'package:kettomovie/utils/enum.dart';
+import 'package:kettomovie/utils/shared/ui_factory.dart';
 
 class MovieDashboardController extends GetxController {
   final RxList<MovieData> _popularMovies = <MovieData>[].obs;
@@ -19,14 +22,26 @@ class MovieDashboardController extends GetxController {
   final MovieService movieService = MovieService();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    fetchMovies();
     super.onInit();
+  }
+
+  void fetchMovies() async {
+    if (!Get.find<ConnectivityService>().isConnected) {
+      return UIFactory().showSnackbar(
+          AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
+    }
     fetchPopularMovies();
     fetchTopRatedMovies();
     fetchUpcomingMovies();
   }
 
   void navigateToMovieDetailsScreen(MovieData movie) {
+    if ((!Get.find<ConnectivityService>().isConnected)) {
+      return UIFactory().showSnackbar(
+          AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
+    }
     Get.toNamed(
       AppRoutesEnum.movieDetail.route,
       arguments: <String, dynamic>{
