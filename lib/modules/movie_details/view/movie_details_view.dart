@@ -33,26 +33,28 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
   }
 
   Widget _imageView() {
-    return Hero(
-      tag: controller.movieId,
-      child: CachedNetworkImage(
-        height: 500,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        imageUrl: Get.arguments['movieURL'],
-        errorWidget: (context, url, error) => Image.asset(
-            // Movie Error PlaceHolder showing
-            AppImages().movieErrorPlaceHolder,
-            fit: BoxFit.cover),
-        placeholder: (context, url) => const Center(
-          child: CommonShimmerContainer(
-            // Shimmer animation showing
-            width: double.maxFinite,
-            height: double.maxFinite,
+    return Obx(() {
+      return Hero(
+        tag: controller.movieId,
+        child: CachedNetworkImage(
+          height: 500,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          imageUrl: controller.movieDetails?.getMoviePosterPath ?? '',
+          errorWidget: (context, url, error) => Image.asset(
+              // Movie Error PlaceHolder showing
+              AppImages().movieErrorPlaceHolder,
+              fit: BoxFit.cover),
+          placeholder: (context, url) => const Center(
+            child: CommonShimmerContainer(
+              // Shimmer animation showing
+              width: double.maxFinite,
+              height: double.maxFinite,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _backButton() {
@@ -239,122 +241,127 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
       ),
     );
   }
-}
 
-Widget _castOverviewListUI(MovieData? movie) {
-  return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: SizedBox(
-        height: 120,
-        child: ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          scrollDirection: Axis.horizontal,
-          itemCount: movie?.getCastActressList?.length,
-          itemBuilder: (context, index) {
-            CastData castActress =
-                movie?.getCastActressList?[index] ?? CastData();
-            return SizedBox(
-              width: 100,
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: CachedNetworkImage(
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
-                      imageUrl: castActress.getCastActressPosterPath,
-                      errorWidget: (context, url, error) => Image.asset(
-                          AppImages().castActressPlaceHolder,
-                          fit: BoxFit.cover),
-                      placeholder: (context, url) => const Center(
-                        child: CommonShimmerContainer(
-                          width: double.maxFinite,
-                          height: double.maxFinite,
+  Widget _castOverviewListUI(MovieData? movie) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: SizedBox(
+          height: 120,
+          child: ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.horizontal,
+            itemCount: movie?.getCastActressList?.length,
+            itemBuilder: (context, index) {
+              CastData castActress =
+                  movie?.getCastActressList?[index] ?? CastData();
+              return SizedBox(
+                width: 100,
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: CachedNetworkImage(
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        imageUrl: castActress.getCastActressPosterPath,
+                        errorWidget: (context, url, error) => Image.asset(
+                            AppImages().castActressPlaceHolder,
+                            fit: BoxFit.cover),
+                        placeholder: (context, url) => const Center(
+                          child: CommonShimmerContainer(
+                            width: double.maxFinite,
+                            height: double.maxFinite,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  UIFactory().verticalSpaceSmall,
-                  UIFactory().textConfiguration(castActress.originalName ?? '',
-                      color: Colors.white,
-                      fontSize: 14,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.bold),
-                  UIFactory().textConfiguration(castActress.character ?? '',
-                      color: Colors.grey,
-                      fontSize: 14,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400),
-                ],
+                    UIFactory().verticalSpaceSmall,
+                    UIFactory().textConfiguration(
+                        castActress.originalName ?? '',
+                        color: Colors.white,
+                        fontSize: 14,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.bold),
+                    UIFactory().textConfiguration(castActress.character ?? '',
+                        color: Colors.grey,
+                        fontSize: 14,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w400),
+                  ],
+                ),
+              );
+            },
+          ),
+        ));
+  }
+
+  Widget _recommendationListUI(MovieData? movie) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: SizedBox(
+        height: 250,
+        child: ListView.builder(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: movie?.getRecommendationList?.length,
+          itemBuilder: (context, index) {
+            ResultData recomMovie =
+                movie?.getRecommendationList?[index] ?? ResultData();
+            return GestureDetector(
+              onTap: () => controller.changeMovieSelection(recomMovie),
+              child: Container(
+                width: 120,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 0.5,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: CachedNetworkImage(
+                          width: 115,
+                          height: 160,
+                          fit: BoxFit.cover,
+                          imageUrl: recomMovie.getRecommMoviePosterPath,
+                          errorWidget: (context, url, error) => Image.asset(
+                              AppImages().movieErrorPlaceHolder,
+                              fit: BoxFit.cover),
+                          placeholder: (context, url) => const Center(
+                            child: CommonShimmerContainer(
+                              width: double.maxFinite,
+                              height: double.maxFinite,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    UIFactory().verticalSpaceTiny,
+                    UIFactory().textConfiguration(
+                        recomMovie.originalTitle ?? '',
+                        color: Colors.white,
+                        fontSize: 14,
+                        maxLines: 3,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.bold),
+                    UIFactory().verticalSpaceTiny,
+                  ],
+                ),
               ),
             );
           },
         ),
-      ));
-}
-
-Widget _recommendationListUI(MovieData? movie) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: SizedBox(
-      height: 250,
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: movie?.getRecommendationList?.length,
-        itemBuilder: (context, index) {
-          ResultData recomMovie =
-              movie?.getRecommendationList?[index] ?? ResultData();
-          return Container(
-            width: 120,
-            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 0.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      width: 115,
-                      height: 160,
-                      fit: BoxFit.cover,
-                      imageUrl: recomMovie.getRecommMoviePosterPath,
-                      errorWidget: (context, url, error) => Image.asset(
-                          AppImages().movieErrorPlaceHolder,
-                          fit: BoxFit.cover),
-                      placeholder: (context, url) => const Center(
-                        child: CommonShimmerContainer(
-                          width: double.maxFinite,
-                          height: double.maxFinite,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                UIFactory().verticalSpaceTiny,
-                UIFactory().textConfiguration(recomMovie.originalTitle ?? '',
-                    color: Colors.white,
-                    fontSize: 14,
-                    maxLines: 3,
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.bold),
-                UIFactory().verticalSpaceTiny,
-              ],
-            ),
-          );
-        },
       ),
-    ),
-  );
+    );
+  }
 }

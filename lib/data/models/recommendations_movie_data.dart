@@ -1,3 +1,4 @@
+import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/utils/constants/app_api_endpoints.dart';
 
 class RecommendationsMovieData {
@@ -16,10 +17,12 @@ class RecommendationsMovieData {
 }
 
 class ResultData {
+  int? id;
   String? title;
   String? originalTitle;
   String? posterPath;
   ResultData({
+    this.id,
     this.title,
     this.originalTitle,
     this.posterPath,
@@ -33,5 +36,6 @@ class ResultData {
         title: json["title"] ?? '',
         originalTitle: json["title"] ?? '',
         posterPath: json["poster_path"] ?? '',
+        id: json["id"],
       );
 }

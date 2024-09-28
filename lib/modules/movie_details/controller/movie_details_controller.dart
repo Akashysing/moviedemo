@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:kettomovie/data/models/movie_data.dart';
+import 'package:kettomovie/data/models/recommendations_movie_data.dart';
 import 'package:kettomovie/services/connectivity_service.dart';
 import 'package:kettomovie/services/movie_service.dart';
 import 'package:kettomovie/utils/constants/app_strings.dart';
@@ -66,5 +67,13 @@ class MovieDetailsController extends GetxController {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  void changeMovieSelection(ResultData movie) {
+    if ((!Get.find<ConnectivityService>().isConnected)) {
+      return UIFactory().showSnackbar(
+          AppStrings.noInternetConnection, AppStrings.youAreCurrentlyoffline);
+    }
+    fetchMovieDetails(movie.id ?? 0); // ApiCall with passing movieId arguments
   }
 }
