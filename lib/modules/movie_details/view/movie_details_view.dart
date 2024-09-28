@@ -42,9 +42,10 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
           width: double.infinity,
           imageUrl: controller.movieDetails?.getMoviePosterPath ?? '',
           errorWidget: (context, url, error) => Image.asset(
-              // Movie Error PlaceHolder showing
-              AppImages().movieErrorPlaceHolder,
-              fit: BoxFit.cover),
+            // Movie Error PlaceHolder showing
+            AppImages().movieErrorPlaceHolder,
+            fit: BoxFit.cover,
+          ),
           placeholder: (context, url) => const Center(
             child: CommonShimmerContainer(
               // Shimmer animation showing
@@ -303,7 +304,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
-        height: 250,
+        height: 220,
         child: ListView.builder(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
@@ -351,7 +352,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
                         recomMovie.originalTitle ?? '',
                         color: Colors.white,
                         fontSize: 14,
-                        maxLines: 3,
+                        maxLines: 2,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.bold),
                     UIFactory().verticalSpaceTiny,
