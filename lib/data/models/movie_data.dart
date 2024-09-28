@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:kettomovie/utils/constants/app_api_endpoints.dart';
+import 'package:kettomovie/constants/app_api_endpoints.dart';
 
 class MovieData {
   final int? id;

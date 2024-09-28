@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:kettomovie/constants/app_images.dart';
+
+import 'package:kettomovie/constants/app_strings.dart';
 import 'package:kettomovie/modules/movie_details/controller/movie_details_controller.dart';
-import 'package:kettomovie/utils/constants/app_images.dart';
-import 'package:kettomovie/utils/constants/app_strings.dart';
 import 'package:kettomovie/utils/shared/common_shimmer_container.dart';
 
 class MovieDetailsView extends GetView<MovieDetailsController> {

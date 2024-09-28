@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/services/movie_service.dart';
-import 'package:kettomovie/utils/enum.dart';
+import 'package:kettomovie/constants/enum.dart';
 
 class MovieDashboardController extends GetxController {
   final RxList<MovieData> _popularMovies = <MovieData>[].obs;

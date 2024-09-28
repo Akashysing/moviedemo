@@ -1,4 +1,5 @@
 enum AppRoutesEnum {
+  home(route: '/'),
   movieDashboard(route: '/movieDashboard'),
   movieDetail(route: '/movieDetail');
 

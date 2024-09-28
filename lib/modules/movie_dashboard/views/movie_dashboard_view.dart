@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:kettomovie/data/models/movie_data.dart';
 import 'package:kettomovie/modules/movie_dashboard/controller/movie_dashboard_controller.dart';
 import 'package:kettomovie/modules/movie_dashboard/views/movie_card.dart';
-import 'package:kettomovie/utils/constants/app_strings.dart';
+import 'package:kettomovie/constants/app_strings.dart';
 
 class MovieDashboardView extends GetView<MovieDashboardController> {
   const MovieDashboardView({super.key});
@@ -11,17 +11,6 @@ class MovieDashboardView extends GetView<MovieDashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-          title: const Text(
-            AppStrings.movieApp,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          )),
       body: Obx(() {
         if (controller.isLoading) {
           return const Center(
